@@ -66,6 +66,7 @@ function App() {
   );
 
   const onConnect = useCallback((connection) => {
+    Tone.start();
     synth.triggerAttackRelease("C2", "8n");
     console.log("New connection:", connection);
     setEdges((eds) => addEdge(connection, eds));
