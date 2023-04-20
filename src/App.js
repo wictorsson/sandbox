@@ -76,6 +76,11 @@ function App() {
 
   return (
     <div style={{ height: 800 }}>
+      <div id="wrapper">
+        <button id="button" onClick={playSynth}>
+          click m
+        </button>
+      </div>
       <ReactFlow
         nodes={nodes}
         edges={edges}
