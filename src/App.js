@@ -65,22 +65,18 @@ function App() {
     [setEdges]
   );
 
-  const onConnect = useCallback(
-    (connection) => {
-      playSynth();
-      console.log("New connection:", connection);
-      setEdges((eds) => addEdge(connection, eds));
-    },
-    [setEdges]
-  );
+  const onConnect = useCallback((connection) => {
+    synth.triggerAttackRelease("C2", "8n");
+    console.log("New connection:", connection);
+    setEdges((eds) => addEdge(connection, eds));
+  }, []);
 
   return (
     <div style={{ height: 800 }}>
-      <div id="wrapper">
-        <button id="button" onClick={playSynth}>
-          click m
-        </button>
-      </div>
+      <button id="button" onClick={playSynth}>
+        click m
+      </button>
+
       <ReactFlow
         nodes={nodes}
         edges={edges}
