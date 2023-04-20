@@ -19,8 +19,12 @@ const rfStyle = {
 
 const synth = new Tone.MembraneSynth().toDestination();
 
+var started = false;
+
 function playSynth() {
-  synth.triggerAttackRelease("C2", "8n");
+  Tone.start();
+  started = true;
+  // synth.triggerAttackRelease("C2", "8n");
 }
 
 const initialNodes = [
@@ -66,8 +70,10 @@ function App() {
   );
 
   const onConnect = useCallback((connection) => {
-    Tone.start();
-    synth.triggerAttackRelease("C2", "8n");
+    // Tone.start();
+    if (started) {
+      synth.triggerAttackRelease("C2", "8n");
+    }
     console.log("New connection:", connection);
     setEdges((eds) => addEdge(connection, eds));
   }, []);
@@ -75,7 +81,7 @@ function App() {
   return (
     <div style={{ height: 800 }}>
       <button id="button" onClick={playSynth}>
-        click m
+        Start audio
       </button>
 
       <ReactFlow
