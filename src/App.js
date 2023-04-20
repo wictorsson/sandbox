@@ -17,6 +17,12 @@ const rfStyle = {
   backgroundColor: "grey",
 };
 
+const synth = new Tone.MembraneSynth().toDestination();
+
+function playSynth() {
+  synth.triggerAttackRelease("C2", "8n");
+}
+
 const initialNodes = [
   {
     id: "node-1",
@@ -42,9 +48,10 @@ const initialNodes = [
 ];
 // we define the nodeTypes outside of the component to prevent re-renderings
 // you could also use useMemo inside the component
+
 const nodeTypes = { textUpdater: TextUpdaterNode };
 
-function Flow() {
+function App() {
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState([]);
   const [osc, setOsc] = useState();
@@ -60,14 +67,7 @@ function Flow() {
 
   const onConnect = useCallback(
     (connection) => {
-      const synth = new Tone.Synth().toDestination();
-
-      if (connection.target === "node-3") {
-        const source = new Tone.Oscillator().toDestination();
-      } else {
-        setOsc(null);
-        synth.triggerAttackRelease("C4", "4n");
-      }
+      playSynth();
       console.log("New connection:", connection);
       setEdges((eds) => addEdge(connection, eds));
     },
@@ -91,4 +91,4 @@ function Flow() {
   );
 }
 
-export default Flow;
+export default App;
